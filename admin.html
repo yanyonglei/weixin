@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{$title}</title>	
+</head>
+<body>
+
+	<table border="1" cellpadding="0" cellspacing="0" align="center" width="900">
+		<caption><h1>用户列表</h1></caption>	
+		<tr>
+			<th>头像</th>
+			<th>匿名</th>
+			<th>opinid</th>
+			<th>groupid</th>
+			<th>关注时间</th>
+			<th>性别</th>
+			<th>籍贯</th>
+			<th>城市</th>
+			<th>省份</th>
+		</tr>
+		 {if !empty($user)}
+				{foreach $user as $key=>$val}
+				<tr align="center">
+					<td><img src="{$val['headimageurl']}" width="50" height="50"></td>
+					<td>{$val['nickname']}</td>
+					<td>{$val['openid']}</td>
+					<td>{$val['groupid']}</td>
+					<td>{echo date('Y-m-d H:i:s',$val['subscribetime'])}</td>
+					{if $val['sex']==1}
+					<td>男</td>
+					{else if $val['sex']==2 }
+					<td>女</td>
+					{else}
+					<td>未知</td>
+					{/if}
+					<td>{$val['country']}</td>
+					<td>{$val['city']}</td>
+					<td>{$val['province']}</td>
+				</tr>
+				{/foreach}
+				{/if}
+	</table>
+	<hr/>
+	<h1>文件上传</h1>
+	<form method="post" action='doUpload.php' enctype="multipart/form-data">
+		<select name="type">
+			<option>图片</option>
+			<option>音频</option>
+			<option>视频</option>
+		</select>
+		<input type="file" name='file'></input><br/>
+		<br/>
+		<input type="submit" value="上传"></input>
+	</form>
+
+	<hr/>
+	<table border="1" cellpadding="0" cellspacing="0"  align="center" id='table'>
+		<caption><h1>上传素材列表</h1></caption>
+		<thead>
+		<tr>
+			<th>编号</th>
+			<th>类型</th>
+			<th>media_id</th>
+			<th>上传的路径</th>
+			<th>上传时间</th>
+		</tr>
+		</thead>
+		
+	   {if !empty($matter)}
+		{foreach $matter as $key => $val}
+		<tr align="center">
+			<td>{$val['id']}</td>
+			<td>{$val['type']}</td>
+			<td>{$val['media_id']}</td>
+			<td>{$val['path']}</td>
+			<td>{echo date('Y-m-d H:i:s',$val['time'])}</td>
+		</tr>
+		{/foreach}
+		{/if}
+		
+	</table>
+
+	
+</body>
+</html>
